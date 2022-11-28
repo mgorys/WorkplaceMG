@@ -1,0 +1,119 @@
+﻿@model ReservationDto
+@inject IEmployeeService employeeService
+@inject IWorkplaceService workplaceService
+@{
+	var employees = employeeService.GetAllEmployees();
+	var workplaces = workplaceService.GetAllWorkplaces();
+	var uniqueFloors = workplaceService.GetUniqueFloors();
+}
+<h2>
+		@TempData["success"]
+	</h2>
+<form method="post" asp-action="Create">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Create Reservation</h2>
+			<hr />
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="FirstName"></label>
+			<input asp-for="FirstName" class="form-control" />
+			<span asp-validation-for="FirstName" class="text-danger"></span>
+
+			<label asp-for="LastName"></label>
+			<input asp-for="LastName" class="form-control" />
+			<span asp-validation-for="LastName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label>Workplace</label>
+			<select asp-for="Floor" class="form-control" id="floors" onchange="selectFloor(this.value)">
+				<option> Choose Floor</option>
+			</select>
+			<span asp-validation-for="Floor" class="text-danger"></span>
+
+			<select asp-for="Room" class="form-control" id="rooms" onchange="selectRoom(this.value)">
+				<option>Choose Room</option>
+			</select>
+			<span asp-validation-for="Room" class="text-danger"></span>
+
+			<select asp-for="Table" class="form-control" id="tables" onchange="selectTable(this.value)">
+				<option>Choose Table</option>
+
+			</select>
+			<span asp-validation-for="Table" class="text-danger"></span>
+		</div>
+
+
+		<div class="mb-3">
+			<label asp-for="TimeFrom"></label>
+			<input asp-for="TimeFrom" type="date" class="form-control" />
+			<span asp-validation-for="LastName" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="TimeTo"></label>
+			<input asp-for="TimeTo" type="date" class="form-control" />
+			<span asp-validation-for="LastName" class="text-danger"></span>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Create</button>
+		<a asp-controller="Reservation" asp-action="Index" class="btn btn-secondary">
+			Back to List
+		</a>
+	</div>
+</form>
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial" />
+		<script>
+
+			var json = @Html.Raw(Json.Serialize(uniqueFloors));
+			var activeFloor = undefined;
+			var activeRoom = undefined;
+
+			//Choosing Floor
+			let floors = document.getElementById("floors");
+
+			var arrayFloors = [];
+			arrayFloors.push(`<option>Choose Floor</option>`)
+			for (var i = 0; i < json.length; i++) {
+				var html = `<option value='${json[i].id}'>${json[i].id}</option>`
+				arrayFloors.push(html);
+			}
+			floors.innerHTML = arrayFloors;
+
+			//Choosing Room
+			function selectFloor(selectedFloor) {
+				activeFloor = selectedFloor;
+				console.log("activefloor is "+activeFloor);
+
+
+				let rooms = document.getElementById("rooms");
+				var arrayRooms = [];
+				arrayRooms.push(`<option>Choose Room</option>`)
+				for (var i = 0; i < json[activeFloor].roomList.length; i++) {
+					var htmlRoom = `<option value='${json[activeFloor].roomList[i].id}'>${json[activeFloor].roomList[i].id}</option>`
+					arrayRooms.push(htmlRoom);
+				}
+				rooms.innerHTML = arrayRooms;
+			}
+
+			//Choosing Table
+			function selectRoom(selectedRoom) {
+				activeRoom = selectedRoom;
+				console.log("activeroom is " + activeRoom);
+
+				let tables = document.getElementById("tables");
+				var arrayTables = [];
+				arrayTables.push(`<option>Choose Table</option>`)
+				for (var i = 0; i < json[activeFloor].roomList[activeRoom-1].tableList.length; i++) {
+					var htmlTable = `<option value='${json[activeFloor].roomList[activeRoom-1].tableList[i]}'>
+					${json[activeFloor].roomList[activeRoom-1].tableList[i]}
+					</option>`
+					arrayTables.push(htmlTable);
+				}
+				tables.innerHTML = arrayTables;
+			}
+		</script>
+	}
+	}

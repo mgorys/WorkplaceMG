@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ReservationDto>
+@inject IWorkplaceService workplaceService
+@{
+	ViewData["Title"] = "Reservations";
+	var obj = Model;
+	var uniqueFloors = workplaceService.GetUniqueFloors();
+}
+@if (TempData["success"] != null)
+{
+	<h2>
+		@TempData["success"]
+	</h2>
+}
+<div class="text-center">
+
+	<table class="table table-bordered table striped" style="width:100%">
+		<thead>
+			<tr>
+
+				<th>
+					Employee
+				</th>
+				<th>
+					Workplace
+				</th>
+				<th>
+					From 
+					<a asp-controller="Reservation" asp-action="Index" asp-route-sortDirect="asc">asc</a>
+					<a asp-controller="Reservation" asp-action="Index" asp-route-sortDirect="desc">desc</a>
+				</th>
+				<th>
+					To
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null)
+			{
+
+				@foreach (var item in obj)
+				{
+					<tr>
+						<td width="30%">
+							@item.FirstName @item.LastName
+						</td>
+						<td width="30%">
+							Floor: @item.Floor, Room: @item.Room, Table: @item.Table
+						</td>
+						<td width="20%">
+							@item.TimeFrom
+						</td>
+						<td width="20%">
+							@item.TimeTo
+						</td>
+						<td>
+							<div class="w-75 btn-group" role="group">
+								<a asp-controller="Reservation" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+							</div>
+						</td>
+					</tr>
+
+				}
+			}
+		</tbody>
+		
+		<a asp-controller="Reservation" asp-action="Create" class="btn btn-primary">
+			Create Reservation
+		</a>
+	</table>
+	@using (Html.BeginForm("Filter","Reservation"))
+{
+		<label>Floor</label>
+		<input type="number" name="floorF" />
+		<label>Room</label>
+		<input type="number" name="roomF" />
+		<label>Table</label>
+		<input type="number" name="tableF" />
+		<input class="btn btn-secondary" type="submit" value="Filter" />
+}
+</div>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<EmployeeDto>
+@{
+	ViewData["Title"] = "Home Page";
+	var obj = Model;
+}
+
+<div class="text-center">
+
+	<div>
+		<a asp-controller="Employee" asp-action="Index" class="btn btn-primary">
+				Go to Employee
+		</a>
+		<a asp-controller="Equipment" asp-action="Index" class="btn btn-primary">
+				Go to Equipment
+		</a>
+		<a asp-controller="Reservation" asp-action="Index" class="btn btn-primary">
+				Go to Reservations
+		</a>
+	</div>
+
+</div>

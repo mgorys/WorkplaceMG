@@ -1,0 +1,63 @@
+﻿@model IEnumerable<EquipmentDto>
+@{
+	ViewData["Title"] = "Equipment";
+	var obj = Model;
+	var date = ViewBag.DateOf;
+}
+
+<div class="text-center">
+	@if (ViewBag.DateOf is null)
+	{
+		<h2>Equipment in stock today</h2>
+	}
+	else
+	{
+		<h2>Equipment in stock @date</h2>
+	}
+
+	<table class="table table-bordered table striped" style="width:100%">
+		<thead>
+			<tr>
+				<th>
+					<a asp-action="Index">
+						@Html.DisplayNameFor(obj =>obj.Type)
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			@if (obj != null)
+			{
+				@foreach (var item in obj)
+				{
+
+					<tr>
+						<td>
+							@Html.DisplayFor(obj=>item.Type)
+						</td>
+						<td>
+							@Html.DisplayFor(obj=>item.StockCount)
+						</td>
+					</tr>
+				}
+			}
+
+			else
+			{
+				<h2>Model is null</h2>
+			}
+
+		</tbody>
+	</table>
+	<a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+		Go to Home
+	</a>
+	@using (Html.BeginForm("CheckByDate", "Equipment"))
+	{
+
+		<input type="datetime" name="dateOf" />
+		<input class="btn btn-secondary" type="submit" value="Check day" />
+	}
+
+</div>
