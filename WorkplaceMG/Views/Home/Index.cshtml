@@ -5,10 +5,11 @@
 }
 
 <div class="text-center">
-
+	<div>
+	</div>
 	<div>
 		<a asp-controller="Employee" asp-action="Index" class="btn btn-primary">
-				Go to Employee
+				Go to Employees
 		</a>
 		<a asp-controller="Equipment" asp-action="Index" class="btn btn-primary">
 				Go to Equipment
@@ -16,6 +17,13 @@
 		<a asp-controller="Reservation" asp-action="Index" class="btn btn-primary">
 				Go to Reservations
 		</a>
+		<h3 class="m-2">
+			This is an app, on which you can make a reservation in office. Firstly you need to add a employee by giving a name in proper tab. 
+Then in Reservation tab you can create reservation by choosing your name, place where you want to work and period of time.
+Program will find if your reservation will overlap with others or if there will be no equipment (every workplace needs some 
+equipment to have a set of devices). You can search other reservation in proper tab, or even filter to find out best date.
+Additionally you can check how many of each item there will be in stock, for each day.
+		</h3>
 	</div>
 
 </div>

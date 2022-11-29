@@ -12,16 +12,17 @@
 	}
 	else
 	{
-		<h2>Equipment in stock @date</h2>
+		<h2>Equipment in stock @date.ToString("dd-MM-yyyy")</h2>
 	}
 
 	<table class="table table-bordered table striped" style="width:100%">
 		<thead>
 			<tr>
 				<th>
-					<a asp-action="Index">
 						@Html.DisplayNameFor(obj =>obj.Type)
-					</a>
+				</th>
+				<th>
+					@Html.DisplayNameFor(obj =>obj.StockCount)
 				</th>
 			</tr>
 		</thead>
@@ -50,14 +51,12 @@
 
 		</tbody>
 	</table>
-	<a asp-controller="Home" asp-action="Index" class="btn btn-primary">
-		Go to Home
-	</a>
+	
 	@using (Html.BeginForm("CheckByDate", "Equipment"))
 	{
 
-		<input type="datetime" name="dateOf" />
-		<input class="btn btn-secondary" type="submit" value="Check day" />
+		<input type="date" name="dateOf" />
+		<input class="btn btn-primary" type="submit" value="Check day" />
 	}
 
 </div>

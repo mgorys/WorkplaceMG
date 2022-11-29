@@ -28,16 +28,16 @@
 				@foreach (var item in obj)
 				{
 					<tr>
-						<td width="50%">
+						<td width="40%">
 							@item.FirstName
 						</td>
-						<td width="50%">
+						<td width="40%">
 							@item.LastName
 						</td>
 						<td>
-							<div class="w-75 btn-group" role="group">
-								<a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-							</div>
+						
+								<a asp-controller="Employee" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+							
 						</td>
 					</tr>
 				}
@@ -46,10 +46,10 @@
 			{
 				<h2>Model is null</h2>
 			}
+		</tbody>
+	</table>
 			<a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
 				Create Employee
 			</a>
-		</tbody>
-	</table>
 
 </div>

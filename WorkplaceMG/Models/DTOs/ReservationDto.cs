@@ -13,8 +13,8 @@ namespace WorkplaceMG.Models.DTOs
         public int Floor { get; set; }
         public int Room { get; set; }
         public int Table { get; set; }
-        public DateTime? TimeFrom { get; set; }
-        public DateTime? TimeTo { get; set; }
+        public DateTime TimeFrom { get; set; }
+        public DateTime TimeTo { get; set; }
         public string Message { get; set; } = null;
     }
 }
