@@ -18,52 +18,11 @@ namespace WorkplaceMG.Repositories
             _mapper = mapper;
             _equipmentRepository = equipmentRepository;
         }
-        public ReservationDto OrderEquipment(ReservationDto reservationDto)
+        public List<EquipmentForWorkplace> GetEquipmentForWorkplaceById(int id)
         {
-            try
-            {
-                List<DateTime> days = new List<DateTime>();
-                List<IEnumerable<EquipmentForDayDto>> eqPerDay = new List<IEnumerable<EquipmentForDayDto>>();
-                DateTime dayFrom = (DateTime)reservationDto.TimeFrom;
-                DateTime dayTo = (DateTime)reservationDto.TimeTo;
-                List<string> errors = new List<string>();
-                for (DateTime i = dayFrom; i <= dayTo; i = i.AddDays(1))
-                {
-                    days.Add(i);
-                    eqPerDay.Add(_equipmentRepository.EquipmentOrganizer(i));
-                }
-                var eqForWorkplace = _dbContext.EquipmentForWorkplaces.Where(x => x.IdWorkplace == reservationDto.IdWorkplace).ToList();
-                foreach (var day in eqPerDay)
-                {
-                    foreach (var item in day)
-                    {
-                        foreach (var eq in eqForWorkplace)
-                        {
-                            if (eq.IdEquipment == item.Id)
-                            {
-                                if (item.StockCount < 1)
-                                {
-                                    errors.Add(item.Type);
-                                }
-                            }
-                        }
-                    }
-                }
-                errors = errors.Distinct().ToList();
-                if (errors.Count > 0)
-                {
-                    reservationDto.Message = "There will be no equipment in stock to make reservation. Missing items: ";
-                    foreach (var item in errors)
-                    {
-                        reservationDto.Message += item.ToString() + " ";
-                    }
-                }
-                return reservationDto;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Problem with database", ex);
-            }
+            var result =_dbContext.EquipmentForWorkplaces
+                .Where(x => x.IdWorkplace == id).ToList();
+            return result;
         }
     }
 }

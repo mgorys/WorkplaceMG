@@ -1,9 +1,10 @@
-﻿using WorkplaceMG.Models.DTOs;
+﻿using WorkplaceMG.Entities;
+using WorkplaceMG.Models.DTOs;
 
 namespace WorkplaceMG.Repositories.IRepositories
 {
     public interface IEquipmentForWorkplaceRepository
     {
-        ReservationDto OrderEquipment(ReservationDto reservationDto);
+        List<EquipmentForWorkplace> GetEquipmentForWorkplaceById(int id);
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WorkplaceMG.Entities;
 using WorkplaceMG.Repositories;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<WorkplaceDbContext>();
+//builder.Services.AddDbContext<WorkplaceDbContext>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
@@ -21,7 +22,8 @@ builder.Services.AddScoped<IEquipmentForWorkplaceService, EquipmentForWorkplaceS
 builder.Services.AddScoped<IEquipmentForWorkplaceRepository, EquipmentForWorkplaceRepository>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+builder.Services.AddDbContext<WorkplaceDbContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("WorkplaceConnectionString")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

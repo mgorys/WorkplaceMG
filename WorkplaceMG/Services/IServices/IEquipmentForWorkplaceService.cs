@@ -4,7 +4,7 @@ namespace WorkplaceMG.Services.IServices
 {
     public interface IEquipmentForWorkplaceService
     {
-        bool OrderEquimpent(ReservationDto reservationDto);
+        ReservationDto OrderEquipment(ReservationDto reservationDto);
 
     }
 }

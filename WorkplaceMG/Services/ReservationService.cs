@@ -62,7 +62,7 @@ namespace WorkplaceMG.Services
             if (reservationDto.Message != null)
                 return reservationDto;
 
-            _equipmentForWorkplaceService.OrderEquimpent(reservationDto);
+            _equipmentForWorkplaceService.OrderEquipment(reservationDto);
 
             if (reservationDto.Message != null)
                 return reservationDto;
