@@ -18,7 +18,7 @@ Run `update-database` command in Package Manager Console.
 
 ## Database diagram
 
-![Database](Database.jpg)
+![DatabaseDiagram](DatabaseDiagram.jpg)
 
 
 
