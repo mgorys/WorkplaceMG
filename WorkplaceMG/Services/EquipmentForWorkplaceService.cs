@@ -66,5 +66,10 @@ namespace WorkplaceMG.Services
                 throw new Exception("Problem with database", ex);
             }
         }
+        public IEnumerable<EquipmentForWorkplaceDto> GetAllEquipmentForWork()
+        {
+            var result =_equipmentForWorkplaceRepository.GetAllEquipmentForWorkplace();
+            return result;
+        }
     }
 }

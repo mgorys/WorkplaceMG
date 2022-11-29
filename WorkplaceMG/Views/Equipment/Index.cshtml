@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<EquipmentDto>
+@inject IEquipmentForWorkplaceService equipmentForWorkService
 @{
 	ViewData["Title"] = "Equipment";
 	var obj = Model;
 	var date = ViewBag.DateOf;
+	var eqfw = equipmentForWorkService.GetAllEquipmentForWork();
 }
 
 <div class="text-center">
@@ -58,5 +60,51 @@
 		<input type="date" name="dateOf" />
 		<input class="btn btn-primary" type="submit" value="Check day" />
 	}
+	<h2 class="m-3">Required items for place</h2>
+	<table class="table table-bordered table striped w-50 m-2">
+		<thead>
+			<tr><th>
+				Floor
+			</th>
+				<th>
+					Room
+				</th>
+				<th>Table</th>
+				<th>
+					Item
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			@if (eqfw != null)
+			{
+				@foreach (var item in eqfw)
+				{
+
+					<tr>
+						<td>
+							@item.Floor
+						</td>
+						<td>
+							@item.Room
+						</td>
+						<td>
+							@item.Table
+						</td>
+						<td>
+							@item.Type
+						</td>
+					</tr>
+				}
+			}
+
+			else
+			{
+				<h2>Model is null</h2>
+			}
+
+		</tbody>
+	</table>
 
 </div>

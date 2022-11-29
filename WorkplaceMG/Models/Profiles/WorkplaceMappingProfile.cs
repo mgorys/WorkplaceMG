@@ -16,11 +16,13 @@ namespace WorkplaceMG.Models.Profiles
             CreateMap<Equipment, EquipmentDto>();
             CreateMap<EquipmentForDayDto, EquipmentDto>();
             CreateMap<Equipment, EquipmentForDayDto>();
+            CreateMap<EquipmentForWorkplace,EquipmentForWorkplaceDto>()
+                .ForMember(m => m.Type, n => n.MapFrom(b => b.Equipment.Type))
+                .ForMember(m => m.Floor, n => n.MapFrom(b => b.Workplace.Floor))
+                .ForMember(m => m.Table, n => n.MapFrom(b => b.Workplace.Table))
+                .ForMember(m => m.Room, n => n.MapFrom(b => b.Workplace.Room));
 
             CreateMap<ReservationDto, Reservation>();
-              
-                
-
             CreateMap<Reservation, ReservationDto>()
                 .ForMember(m => m.FirstName, n => n.MapFrom(b => b.Employee.FirstName))
                 .ForMember(m => m.LastName, n => n.MapFrom(b => b.Employee.LastName))

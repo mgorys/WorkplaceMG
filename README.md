@@ -1,6 +1,8 @@
 # WorkplaceMG
 
 WorkplaceMG is an application, on which you can make a reservation for a place in office.
+Application checks if your reservation will overlap with other and if there is enough equipment
+to provide for that particular place.
 
 ## Installation
 1.Change your connection string in appsettings.json

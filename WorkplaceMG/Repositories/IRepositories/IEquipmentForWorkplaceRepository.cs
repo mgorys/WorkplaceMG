@@ -6,5 +6,6 @@ namespace WorkplaceMG.Repositories.IRepositories
     public interface IEquipmentForWorkplaceRepository
     {
         List<EquipmentForWorkplace> GetEquipmentForWorkplaceById(int id);
+        IEnumerable<EquipmentForWorkplaceDto> GetAllEquipmentForWorkplace();
     }
 }
